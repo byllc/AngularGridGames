@@ -25,6 +25,9 @@ Currently you need to include grid_board_games.js and the controller for the gam
 
 ```
 
+##which generates the following grid and playable game
+![alt tag](https://www.evernote.com/shard/s283/sh/a4b2c9b2-ae52-4cb5-b191-1148d2c4ee5c/d3c86de39c8dd9a6a60d4209e391e96b)
+
 ##TODO
  * Add Tests
  * Other Games (Chess, Go, Pente, Peg Solitaire)
