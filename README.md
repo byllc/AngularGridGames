@@ -4,7 +4,7 @@ An angular directive and small framework for quickly designing 2d grid based boa
 
 ## Usage
 
-Currently you need to include grid_board_games.js and the controller for the games you would like to use (othello_game_board_controller.js, chess... et)
+Currently you need to include grid_board_games.js and the controller for the games you would like to use (othello_game_board_controller.js, chess... et). All styles and layout are handled through css. The directive applies minimal classes to the layout. 
 
 ## Here is an example usage
 ```html
