@@ -1,4 +1,6 @@
 app.controller("OthelloGameBoardController", function($scope){
+  var GridHelp = new GridGameHelper(); 
+
   $scope.gameBoard      = new Object();
   $scope.gameBoard.rows = new Array();
   $scope.boardWidth     = 8
@@ -41,17 +43,8 @@ app.controller("OthelloGameBoardController", function($scope){
   //***
   //private members
   //***
- var directions = {
-    n:  { x: -1, y: 0},
-    ne: { x: -1, y: 1},
-    e:  { x: 0, y: 1},
-    se: { x: 1, y: 1},
-    s:  { x: 1, y: 0},
-    sw: { x: 1, y: -1},
-    w:  { x: 0, y: -1},
-    nw: { x: -1, y: -1}
-  }  
-  
+  var directions = GridHelp.Directions();
+
   var checkGameCompletion = function(){
     var maxPlays = $scope.boardWidth * $scope.boardHeight; 
     if($scope.turns >= maxPlays){
