@@ -24,4 +24,4 @@ An angular directive and small framework for quickly designing 2d grid based boa
 ##TODO
  * Add Tests
  * Other Games (Chess, Go, Pente, Peg Solitaire)
- 
+ * Get a demo on gh-pages branch
