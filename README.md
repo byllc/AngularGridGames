@@ -26,7 +26,8 @@ Currently you need to include grid_board_games.js and the controller for the gam
 ```
 
 ##which generates the following grid and playable game
-![alt tag](https://www.evernote.com/shard/s283/sh/a4b2c9b2-ae52-4cb5-b191-1148d2c4ee5c/d3c86de39c8dd9a6a60d4209e391e96b/res/b1d10a2d-86ad-4126-b941-32d81f2a7f1e/skitch.png)
+![alt tag](https://raw.github.com/byllc/AngularGridGames/master/images/screenshot.png)
+
 
 ##TODO
  * Add Tests
