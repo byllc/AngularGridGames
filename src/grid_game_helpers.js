@@ -6,29 +6,39 @@ var GridGameHelper = function(){
        y: Y location in grid
        player: the player or players who own or occupy this cell */
     Cell: function(x,y,player){
-      this.x     = x;
-      this.y     = y; 
-      this.player = player;
-      this.active = false;
-     
+      this.x      = x
+      this.y      = y 
+      this.player = player
+      this.active = false
+      this.activate = function(){
+        this.active = true
+      }
+      this.addPlayer = function(player){
+        this.player = player
+      }
+      this.deactivate = function(){
+        this.active   = false
+      }
       this.hasPlayer = function(){
         return !(this.player == undefined)
       }
-
       this.location = function(){
         return [x,y];
       }
-
+      this.removePlayer = function(){
+        this.player = undefined
+      }
       this.token = function(){
         return this.player && this.player.token + "Token";
-      };
-
+      }
       this.tokenIs = function(token){
         return this.player && this.player.token == token
-      };
-
-      this.activeToken = function(){
-        return active ? "active" : "";
+      }
+      this.statusToken = function(){
+        return this.active ? "active" : "inactive";
+      }
+      this.ownedBy    = function(player){
+        return this.player && player.id == this.player.id
       }
 
     },
@@ -81,12 +91,76 @@ var GridGameHelper = function(){
       this.token = token
       this.score = 0
       this.next  = next
+      this.addPoints = function(points){
+        this.score = Number(this.score) + Number(points)
+      }
+    },
+
+
+    /*Set up the default scope values and behaviors
+      for a Game Board Controller
+      scope: a scope object */
+    ScopeDecorator: function(scope){
+      scope.gameBoard      = new Object();
+      scope.gameBoard.rows = new Array();
+      scope.boardWidth     = 8
+      scope.boardHeight    = 8
+      scope.gameStatus     = ''
+      scope.activeToken  = undefined
+      scope.activeCell   = undefined
+
+      scope.players      = [ 
+        new GridGameHelp.Player(0,'Player 1','p1',1),
+        new GridGameHelp.Player(1,'Player 2','p2',0)
+      ]
+
+      scope.activePlayerId = 0
+      scope.firstPlayer  = scope.players[0]
+
+      scope.statusToken = function(x,y){
+        return scope.getCell(x,y).active ? 'active' : ''
+      }
+      scope.activePlayer = function(){
+        return scope.players[ scope.activePlayerId ]
+      }
+      scope.activateCell = function(cell){
+         cell.activate() 
+         scope.activeCell = cell
+      }
+      scope.clearActiveCell = function(){
+        scope.activeCell.deactivate()
+        scope.activeCell = undefined
+      }
+      scope.activatePlayer = function(player){
+        scope.activePlayerId = player.id
+      }
+      scope.nextPlayer = function(){
+        return scope.players[ scope.activePlayer().next ]; 
+      }
+      scope.getCell    = function(x,y){
+        if( scope.gameBoard.rows[x] == undefined ){
+          return undefined
+        }else{
+          return scope.gameBoard.rows[x][y]
+        }
+      }
+      scope.passPlay     = function(){
+        scope.activePlayerId = scope.nextPlayer().id
+      }
+      
+      scope.placeToken = function(cell){
+        if( cell.player == undefined ){
+          cell.player = scope.activePlayer();
+        }
+      }
+
     },
   
     //TODO: move this to separate template file
+    // The basic board game html template
     Template: function(){
       var tpl ="<div ng-repeat='row in gameBoard.rows' class='gameRow'>"
-          +"      <div ng-repeat='cell in gameBoard.rows[$index]' ng-class='class.activeToken()' class='gameCell' ng-click='processTurn(cell)'>"
+          +"      <div ng-repeat='cell in gameBoard.rows[$index]' ng-class='cell.statusToken()' class='gameCell' ng-click='processClick(cell)'>"
           +"        <div draggable='true' ng-class='cell.token()' class='token'></div>"
           +"      </div>"
           +"   </div>"

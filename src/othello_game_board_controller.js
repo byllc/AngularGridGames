@@ -1,42 +1,22 @@
 app.controller("OthelloGameBoardController", function($scope){
+  GridGameHelp.ScopeDecorator($scope);
   
-  $scope.gameBoard      = new Object();
-  $scope.gameBoard.rows = new Array();
-  $scope.boardWidth     = 8
-  $scope.boardHeight    = 8
-  $scope.gameStatus     = ''
-
-  $scope.players = [ 
-    new GridGameHelp.Player(0,'Player 1','p1',1),
-    new GridGameHelp.Player(1,'Player 2','p2',0)
-  ]
-  
-  //default first player
-  $scope.firstPlayer    = $scope.players[0]
-  $scope.activePlayerId = $scope.firstPlayer.id
-
-  $scope.processTurn = function(cell){
+  $scope.processClick = function(cell){
     if(processSideEffects(cell)){
-      placeToken(cell);
+      $scope.placeToken(cell);
+      $scope.passPlay()
+      $scope.activePlayer().addPoints(1)
       checkGameCompletion();
     }
-  }
-
-  $scope.activePlayer = function(){
-    return $scope.players[ $scope.activePlayerId ]
-  }
-
-  $scope.nextPlayer = function(){
-    return $scope.players[ $scope.activePlayer().next ]; 
   }
 
   $scope.newGame = function(){
     //set token fo defaults
     $scope.activePlayerId = $scope.firstPlayer.id
-    getCell(3,3).player = $scope.activePlayer()
-    getCell(4,3).player = $scope.nextPlayer()
-    getCell(3,4).player = $scope.nextPlayer()
-    getCell(4,4).player = $scope.activePlayer()
+    $scope.getCell(3,3).player = $scope.activePlayer()
+    $scope.getCell(4,3).player = $scope.nextPlayer()
+    $scope.getCell(3,4).player = $scope.nextPlayer()
+    $scope.getCell(4,4).player = $scope.activePlayer()
   }
 
   //***
@@ -46,22 +26,6 @@ app.controller("OthelloGameBoardController", function($scope){
     var maxPlays = $scope.boardWidth * $scope.boardHeight; 
     if($scope.turns >= maxPlays){
       $scope.gameStatus = 'complete'
-    }
-  }
-
-  var getCell = function(x,y){
-    if($scope.gameBoard.rows[x] == undefined){
-      return undefined
-    }else{
-      return $scope.gameBoard.rows[x][y]
-    }
-  }
-
-  var placeToken = function(cell){
-    if( cell.player == undefined ){
-      cell.player = $scope.activePlayer();
-      $scope.activePlayer().score += 1;
-      $scope.activePlayerId = $scope.nextPlayer().id;
     }
   }
 
@@ -77,7 +41,7 @@ app.controller("OthelloGameBoardController", function($scope){
   }
 
   var walkDirection = function(cell,direction,cellStack){
-    var next   = getCell( (cell.x + direction.x), (cell.y + direction.y) )
+    var next   = $scope.getCell( (cell.x + direction.x), (cell.y + direction.y) )
     var actionApplied = false;
     if(next && next.tokenIs($scope.activePlayer().token)){
       flipCells(cellStack);  
@@ -94,8 +58,8 @@ app.controller("OthelloGameBoardController", function($scope){
   var flipCells = function(cellStack){
     for(cell in cellStack){
       cellStack[cell].player = $scope.activePlayer()
-      $scope.activePlayer().score += 1
-      $scope.nextPlayer().score   -= 1
+      $scope.activePlayer().addPoints(1)
+      $scope.nextPlayer().addPoints(-1)
     }
   }
 

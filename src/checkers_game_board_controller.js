@@ -1,32 +1,16 @@
 app.controller("CheckersGameBoardController", function($scope){
+  GridGameHelp.ScopeDecorator($scope);
+ 
+  $scope.processClick = function(cell){
 
-  $scope.gameBoard      = new Object();
-  $scope.gameBoard.rows = new Array();
-  $scope.boardWidth     = 8
-  $scope.boardHeight    = 8
-  $scope.gameStatus     = ''
-
-  $scope.players = [ 
-    { id: 0, next: 1, name: 'Player 1', score: 0, token: 'p1'},
-    { id: 1, next: 0, name: 'Player 2', score: 0, token: 'p2'}
-  ]
-
-  //default first player
-  $scope.firstPlayer = $scope.players[0]
-  $scope.activePlayerId = $scope.firstPlayer.id
-  $scope.activeToken  = undefined
-
-  $scope.processTurn = function(cell){
-    if($scope.activeToken){
-      $scope.activeToken.player = undefined
-      $scope.activeToken.active = false
-      cell.player = $scope.activePlayer()
-      console.log($scope.activePlayer())
-    }else if(cell.player && Number($scope.activePlayerId) == Number(cell.player.id)){
-      console.log("clicked my thing")
-      $scope.activeToken = cell
-      cell.active        = true
-      $scope.activePlayerId = $scope.nextPlayer().id
+    if($scope.activeCell){
+      cell.addPlayer( $scope.activePlayer() )
+      $scope.activeCell.removePlayer()
+      $scope.clearActiveCell()
+      $scope.passPlay()
+    }else if( cell.ownedBy( $scope.activePlayer() ) ){
+      $scope.activateCell(cell)  
+      console.log($scope.activeCell) 
     }
   }
  
@@ -40,24 +24,13 @@ app.controller("CheckersGameBoardController", function($scope){
       	var cellId    = Number(pDefaults[row][cell]);
         var p2CellId  = cellId + ((cellId%2 == 1) ? -1 : 1);
         
-        getCell(rowId, cellId).player   = $scope.activePlayer()
-        getCell(rowId+5, p2CellId).player = $scope.nextPlayer()
+        $scope.getCell(rowId, cellId).player   = $scope.activePlayer()
+        $scope.getCell(rowId+5, p2CellId).player = $scope.nextPlayer()
       }
     }
     
   }
 
-  $scope.activeTokenLabel = function(x,y){
-    getCell(x,y).active ? 'active' : ''
-  }
-
-  $scope.activePlayer = function(){
-    return $scope.players[ $scope.activePlayerId ]
-  }
-
-  $scope.nextPlayer = function(){
-    return $scope.players[ $scope.activePlayer().next ]; 
-  }
   //***
   //private members
   //***
@@ -68,13 +41,16 @@ app.controller("CheckersGameBoardController", function($scope){
     }
   }
 
-  var getCell = function(x,y){
-    if($scope.gameBoard.rows[x] == undefined){
-      return undefined
-    }else{
-      return $scope.gameBoard.rows[x][y]
+  var validMove = function(cell,player){
+    var dirs = GridGameHelp.Directions()
+    var validCoords = [ [dirs['sw'], dirs['se'] ], 
+                       [dirs['nw'], dirs['sw'] ] ]
+
+    for(coords in validCoords[player.id]){
+      
     }
   }
+  
 
  });
   

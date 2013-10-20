@@ -1,6 +1,3 @@
-.activeToken{
-  background-color: yellow;
-}
 
 .gameContainer{
   border: 5px solid;
@@ -68,4 +65,8 @@
 
 .debug{
   font-size: 0.8em;
+}
+
+.active{
+  border: 1px solid yellow;  
 }

@@ -1,5 +1,5 @@
 describe("GridGameHelpers", function() {
-
+ 
   beforeEach(function() {
   	GridGameHelp = new GridGameHelper();
   });
@@ -7,8 +7,8 @@ describe("GridGameHelpers", function() {
   describe("Cell Object", function(){
 
     beforeEach(function() {
-      player = {}
-  	  cell = new GridGameHelp.Cell(1,1,player)
+      player = {name: "Test"}
+  	  cell = new GridGameHelp.Cell(1,1)
     });
   
     it('Should know where it is in the grid', function(){
@@ -16,17 +16,28 @@ describe("GridGameHelpers", function() {
     });
 
     it('Should know when a player is assigned', function(){
+    	cell.addPlayer(player)
         expect( cell.hasPlayer() ).toEqual(true)
     });
 
     it('Should know when a player is not assigned', function(){
-    	cell.player = undefined
+    	cell.removePlayer()
         expect( cell.hasPlayer() ).toEqual(false)
     });
 
     it('should be inactive by default', function(){
         expect( cell.active ).toBe(false)
     });
+
+    it('should add a player', function(){
+      cell.addPlayer(player)
+      expect( cell.player ).toEqual(player)
+    })
+
+    it('should return active token when active', function(){
+    	cell.activate()
+    	expect( cell.statusToken()).toEqual('active')
+    })
 
   });
 
@@ -45,6 +56,11 @@ describe("GridGameHelpers", function() {
 
     it('should know its token', function(){
     	expect(player.token).toEqual(token)
+    });
+
+    it('should add points to score', function(){
+      player.addPoints(2)
+      expect(player.score).toBe(2)
     });
 
   });
@@ -111,5 +127,35 @@ describe("GridGameHelpers", function() {
       //expect(gameBoard.rows.length).toBe(2)
     })
 
+  });
+
+  describe("Scope Decorator", function(){
+     beforeEach(function(){
+       scope = {}
+       cell = new GridGameHelp.Cell(1,2)
+       GridGameHelp.ScopeDecorator(scope)
+     });
+
+     it("should add default game board", function(){
+       expect(scope.gameBoard).not.toBe(undefined)
+     });
+
+     it("should add default rows", function(){
+       expect(scope.gameBoard.rows).not.toBe(undefined)
+     });
+
+     it("should add default players", function(){
+       expect(scope.players.length).toBe(2)
+     });
+
+     it("should assign current player", function(){
+        expect(scope.activePlayerId).toBe(0)
+     });
+
+     it("should activate cell when asked", function(){
+     	scope.activateCell(cell)
+     	expect(scope.activeCell).toEqual(cell)
+        expect(scope.activeCell.statusToken()).toEqual('active')
+     })
   });
 });
