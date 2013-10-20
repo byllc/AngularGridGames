@@ -1,6 +1,6 @@
 app.controller("OthelloGameBoardController", function($scope){
   var GridHelp = new GridGameHelper(); 
-
+  
   $scope.gameBoard      = new Object();
   $scope.gameBoard.rows = new Array();
   $scope.boardWidth     = 8
