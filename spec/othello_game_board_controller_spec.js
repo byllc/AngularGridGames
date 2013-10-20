@@ -29,7 +29,7 @@ describe("OthelloGameBoardController", function() {
     expect($scope.boardWidth).toBe(8) 
   });
 
-  it("have and empty rows set intialize", function(){
+  it("have and empty row set intializes", function(){
     expect($scope.gameBoard.rows.length).toBe(0) 
   });
 

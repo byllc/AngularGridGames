@@ -1,5 +1,4 @@
 app.controller("OthelloGameBoardController", function($scope){
-  var GridHelp = new GridGameHelper(); 
   
   $scope.gameBoard      = new Object();
   $scope.gameBoard.rows = new Array();
@@ -8,12 +7,12 @@ app.controller("OthelloGameBoardController", function($scope){
   $scope.gameStatus     = ''
 
   $scope.players = [ 
-    { id: 0, next: 1, name: 'Player 2', score: 2, token: 'p1'},
-    { id: 1, next: 0, name: 'Player 1', score: 2, token: 'p2'}
+    new GridGameHelp.Player(0,'Player 1','p1',1),
+    new GridGameHelp.Player(1,'Player 2','p2',0)
   ]
   
   //default first player
-  $scope.firstPlayer = $scope.players[0]
+  $scope.firstPlayer    = $scope.players[0]
   $scope.activePlayerId = $scope.firstPlayer.id
 
   $scope.processTurn = function(cell){
@@ -43,8 +42,6 @@ app.controller("OthelloGameBoardController", function($scope){
   //***
   //private members
   //***
-  var directions = GridHelp.Directions();
-
   var checkGameCompletion = function(){
     var maxPlays = $scope.boardWidth * $scope.boardHeight; 
     if($scope.turns >= maxPlays){
@@ -72,8 +69,8 @@ app.controller("OthelloGameBoardController", function($scope){
   //return true if anything was processed
   var processSideEffects = function(cell){
     results = []
-    for(direction in directions){
-      results.push(walkDirection(cell, directions[direction], []));
+    for(direction in GridGameHelp.Directions){
+      results.push(walkDirection(cell, GridGameHelp.directions[direction], []));
     }
     return (results.indexOf(true) > -1)
   }

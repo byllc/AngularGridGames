@@ -1,5 +1,4 @@
 app.controller("CheckersGameBoardController", function($scope){
-  var GridHelp = new GridGameHelper(); 
 
   $scope.gameBoard      = new Object();
   $scope.gameBoard.rows = new Array();
@@ -62,8 +61,6 @@ app.controller("CheckersGameBoardController", function($scope){
   //***
   //private members
   //***
-  var directions = GridHelp.Directions();
-
   var checkGameCompletion = function(){
     var maxPlays = $scope.boardWidth * $scope.boardHeight; 
     if($scope.turns >= maxPlays){
