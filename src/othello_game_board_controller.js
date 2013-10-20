@@ -68,9 +68,10 @@ app.controller("OthelloGameBoardController", function($scope){
   //perform all flanking flip operations for this cell
   //return true if anything was processed
   var processSideEffects = function(cell){
-    results = []
-    for(direction in GridGameHelp.Directions){
-      results.push(walkDirection(cell, GridGameHelp.directions[direction], []));
+    var results = []
+    var directions = GridGameHelp.Directions()
+    for(direction in directions ){
+      results.push(walkDirection(cell, directions[direction], []));
     }
     return (results.indexOf(true) > -1)
   }

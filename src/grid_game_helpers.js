@@ -1,7 +1,7 @@
 var GridGameHelper = function(){
   return {
 
-    /* A single game board chell object
+    /* A single game board cell object
        x: X location in grid
        y: Y location in grid
        player: the player or players who own or occupy this cell */
@@ -34,15 +34,17 @@ var GridGameHelper = function(){
     },
 
     /* Direction Vectors for moving around the grid */
-    Directions: function(){
-       this.n  = { x: -1, y: 0}
-       this.ne = { x: -1, y: 1}
-       this.e  = { x: 0, y: 1}
-       this.se = { x: 1, y: 1}
-       this.s  = { x: 1, y: 0}
-       this.sw = { x: 1, y: -1}
-       this.w  = { x: 0, y: -1}
-       this.nw = { x: -1, y: -1}
+    Directions: function(){ 
+       return {
+           n: { x: -1, y: 0 },
+          ne: { x: -1, y: 1 },
+           e: { x:  0, y: 1 },
+          se: { x:  1, y: 1 },
+           s: { x:  1, y: 0 },
+          sw: { x:  1, y: -1},
+           w: { x:  0, y: -1},
+          nw: { x: -1, y: -1}
+       }
     },   
 
     /* A GameBoard 
@@ -57,7 +59,7 @@ var GridGameHelper = function(){
       scope.boardHeight  = attrs.rows;
       scope.gameBoard    = scope.gameBoard || {}
       scope.gameBoard.rows = new Array()
-      
+
       for(var x=0; x < attrs.cols; x++){
         scope.gameBoard.rows[x] = new Array();
         for(var y=0; y < attrs.rows; y++){

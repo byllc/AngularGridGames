@@ -41,4 +41,5 @@ describe("OthelloGameBoardController", function() {
     expect($scope.nextPlayer()).toBe($scope.players[1])
   });
 
+
 });

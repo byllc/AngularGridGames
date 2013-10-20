@@ -31,6 +31,7 @@ Currently you need to include grid_board_games.js and the controller for the gam
 ##And Checkers is currently in progress
 ![alt tag](https://raw.github.com/byllc/AngularGridGames/master/images/checkers.png)
 
+The look and feel differences are completely handled via css
 
 ##TODO
  * Add Tests
