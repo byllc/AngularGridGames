@@ -1,3 +1,7 @@
+.activeToken{
+  background-color: yellow;
+}
+
 .gameContainer{
   border: 5px solid;
   display: block;
@@ -9,18 +13,16 @@
 
 .gameCell{
   border: 1px solid;
-  background-color: white;
+  background-color: #000000;
   width: 60px;
   height: 60px;
   float: left;
   cursor: pointer;
 }
 
-.gameCell:nth-child(8n+1), 
-.gameCell:nth-child(8n+3), 
-.gameCell:nth-child(8n+6), 
-.gameCell:nth-child(8n+8){
-  background-color:#ffffff;
+.gameRow:nth-child(2n) .gameCell:nth-child(2n),
+.gameRow:nth-child(2n-1) .gameCell:nth-child(2n-1){
+  background-color: darkred;
 }
 
 .gameRow{
@@ -47,11 +49,23 @@
 }
 
 .p2Token{
-  background-color: white;
-  color: #111111;
+  background-color: #777777;
+  color: #dddddd;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px; 
+  margin: 10px;
 }
 
 .p1Token{
-  background-color: black;
-  color: #eeeeee;
+  background-color: darkred;
+  color: #dddddd;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: 10px; 
+}
+
+.debug{
+  font-size: 0.8em;
 }

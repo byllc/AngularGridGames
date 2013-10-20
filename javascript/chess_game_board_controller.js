@@ -10,7 +10,5 @@ app.controller("ChessGameBoardController", function($scope){
     { id: 1, next: 0, name: 'Player 2', score: 0, token: 'p1'}
   ]
 
-  
-
- ));
+});
   

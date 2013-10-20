@@ -4,6 +4,7 @@ var GridGameHelper = function(){
       this.x     = x;
       this.y     = y; 
       this.player = player;
+      this.active = false;
       this.token = function(){
         return this.player && this.player.token + "Token";
       };
@@ -11,6 +12,11 @@ var GridGameHelper = function(){
       this.tokenIs = function(token){
         return this.player && this.player.token == token
       };
+
+      this.activeToken = function(){
+        return active ? "active" : "";
+      }
+
     },
 
     Directions: function(){
@@ -29,11 +35,11 @@ var GridGameHelper = function(){
     //TODO: move this to separate template file
     Template: function(){
       var tpl ="<div ng-repeat='row in gameBoard.rows' class='gameRow'>"
-          +"  <div ng-repeat='cell in gameBoard.rows[$index]' class='gameCell' ng-click='processTurn(cell)'>"
-          +"    <div ng-class='cell.token()' class='token'>{{cell.x}},{{cell.y}}</div>"
-          +"  </div>"
-          +"</div>"
-          +"<div class='clear'/>"
+          +"      <div ng-repeat='cell in gameBoard.rows[$index]' ng-class='class.activeToken()' class='gameCell' ng-click='processTurn(cell)'>"
+          +"        <div draggable='true' ng-class='cell.token()' class='token'></div>"
+          +"      </div>"
+          +"   </div>"
+          +"   <div class='clear'/>"
       return tpl;
     }
   }
