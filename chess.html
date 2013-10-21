@@ -1,0 +1,42 @@
+<!doctype html>
+
+<html lang="en"  ng-app='GridBoardGame'>
+<head>
+  <meta charset="utf-8">
+
+  <title>Othello</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
+  <script src="src/grid_game_helpers.js"></script>
+  <script src="src/grid_board_game.js"></script>
+  <script src="src/chess_game_board_controller.js"></script>
+
+  <link rel='stylesheet' href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css"/>
+  <link rel='stylesheet' href="stylesheets/chess.css"/>
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+
+  <div class='gameContainer' ng-controller='ChessGameBoardController'>
+    <div ng-game-board cols='8' rows='8' ng-model='gameBoard'></div> 
+    <div class='error'>{{ flash }}</div>
+
+    <ul>
+      <li>{{ activePlayer().name }} it's your move </li>
+      <li ng-repeat='player in players'>
+        <span class='{{player.token}}Token'>{{player.name}}: </span> {{player.score}}
+      </li>
+     </ul>
+
+     <select ng-model='firstPlayer' ng-options='player.name for player in players'></select>
+    
+     <button ng-click='newGame()'/>New Game</button>
+  </div>
+
+</body>
+</html>

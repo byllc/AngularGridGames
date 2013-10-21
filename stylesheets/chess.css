@@ -16,12 +16,11 @@
   cursor: pointer;
 }
 
-.gameCell:nth-child(8n+1), 
-.gameCell:nth-child(8n+3), 
-.gameCell:nth-child(8n+6), 
-.gameCell:nth-child(8n+8){
-  background-color:#ffffff;
+.gameRow:nth-child(2n) .gameCell:nth-child(2n),
+.gameRow:nth-child(2n-1) .gameCell:nth-child(2n-1){
+  background-color: black;
 }
+
 
 .gameRow{
   clear: left;
