@@ -11,7 +11,8 @@ var GridGameHelper = function(){
       this.player = player
       this.active = false
       this.location = [x,y]
-      
+      this.decoration = ""
+
       this.activate = function(){
         this.active = true
       }
@@ -161,6 +162,15 @@ var GridGameHelper = function(){
           cell.player = scope.activePlayer();
         }
       }
+      scope.swapActiveCell = function(cell){
+        scope.activeCell.deactivate()
+        scope.activateCell(cell)
+      }
+      scope.swapDecorations = function(cell1,cell2){
+        var tempDecoration = cell1.decoration
+        cell1.decoration   = cell2.decoration
+        cell2.decoration   = tempDecoration
+      }
 
     },
   
@@ -169,7 +179,7 @@ var GridGameHelper = function(){
     Template: function(){
       var tpl ="<div ng-repeat='row in gameBoard.rows' class='gameRow'>"
           +"      <div ng-repeat='cell in gameBoard.rows[$index]' ng-class='cell.statusToken()' class='gameCell' ng-click='processClick(cell)'>"
-          +"        <div draggable='true' ng-class='cell.token()' class='token'></div>"
+          +"        <div draggable='true' ng-class='cell.token()' class='token'><span class='decoration'>{{cell.decoration}}</div>"
           +"      </div>"
           +"   </div>"
           +"   <div class='clear'/>"

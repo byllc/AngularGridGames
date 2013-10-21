@@ -33,6 +33,10 @@ Currently you need to include grid_board_games.js and the controller for the gam
 ##And Checkers is now functional with single jump mechanics
 ![alt tag](https://raw.github.com/byllc/AngularGridGames/master/images/checkers.png)
 
+##Number Puzzle
+![alt tag](https://raw.github.com/byllc/AngularGridGames/master/images/numbers.png)
+
+
 ##Chess is a work in progress
 ![alt tag](https://raw.github.com/byllc/AngularGridGames/master/images/chess.png)
 
