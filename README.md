@@ -40,8 +40,8 @@ The look and feel differences are completely handled via css
 
 ##Tests
 Test have been provided in Jasmine. You can view them by loading spec_runner.html in a browser
+![alt tag](https://raw.github.com/byllc/AngularGridGames/master/images/spec.png)
 
 ##TODO
- * Add Tests
- * Other Games (Chess, Go, Pente, Peg Solitaire)
+ * Other Games (Chess, Go, Pente, Peg Solitaire, tic-tac-toe)
  * Get a demo on gh-pages branch
