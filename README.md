@@ -43,5 +43,7 @@ Test have been provided in Jasmine. You can view them by loading spec_runner.htm
 ![alt tag](https://raw.github.com/byllc/AngularGridGames/master/images/spec.png)
 
 ##TODO
+ * More Tests
  * Other Games (Chess, Go, Pente, Peg Solitaire, tic-tac-toe)
  * Get a demo on gh-pages branch
+ * Node back end
