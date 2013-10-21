@@ -10,6 +10,8 @@ var GridGameHelper = function(){
       this.y      = y 
       this.player = player
       this.active = false
+      this.location = [x,y]
+      
       this.activate = function(){
         this.active = true
       }
@@ -19,11 +21,11 @@ var GridGameHelper = function(){
       this.deactivate = function(){
         this.active   = false
       }
+      this.equals    = function(other){
+        return this.x == other.x && this.y == other.y
+      }
       this.hasPlayer = function(){
         return !(this.player == undefined)
-      }
-      this.location = function(){
-        return [x,y];
       }
       this.removePlayer = function(){
         this.player = undefined
@@ -33,6 +35,9 @@ var GridGameHelper = function(){
       }
       this.tokenIs = function(token){
         return this.player && this.player.token == token
+      }
+      this.unoccupied = function(){
+        return this.player == undefined
       }
       this.statusToken = function(){
         return this.active ? "active" : "inactive";
@@ -130,6 +135,9 @@ var GridGameHelper = function(){
       scope.clearActiveCell = function(){
         scope.activeCell.deactivate()
         scope.activeCell = undefined
+      }
+      scope.clearFlash = function(){
+        scope.flash = ''
       }
       scope.activatePlayer = function(player){
         scope.activePlayerId = player.id

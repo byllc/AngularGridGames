@@ -12,7 +12,7 @@ describe("GridGameHelpers", function() {
     });
   
     it('Should know where it is in the grid', function(){
-    	expect(cell.location()).toEqual([1,1])
+    	expect(cell.location).toEqual([1,1])
     });
 
     it('Should know when a player is assigned', function(){

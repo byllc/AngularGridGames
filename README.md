@@ -33,6 +33,9 @@ Currently you need to include grid_board_games.js and the controller for the gam
 
 The look and feel differences are completely handled via css
 
+##Tests
+Test have been provided in Jasmine. You can view them by loading spec_runner.html in a browser
+
 ##TODO
  * Add Tests
  * Other Games (Chess, Go, Pente, Peg Solitaire)

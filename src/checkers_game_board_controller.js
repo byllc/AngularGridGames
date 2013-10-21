@@ -2,15 +2,25 @@ app.controller("CheckersGameBoardController", function($scope){
   GridGameHelp.ScopeDecorator($scope);
  
   $scope.processClick = function(cell){
-
+    $scope.clearFlash()
+    player = $scope.activePlayer()
     if($scope.activeCell){
-      cell.addPlayer( $scope.activePlayer() )
-      $scope.activeCell.removePlayer()
-      $scope.clearActiveCell()
-      $scope.passPlay()
+
+      //will follow the validMove check and return with details
+      //about walking the board for example, if players were captured
+      var skipTrace = {} 
+
+      if($scope.validMove(cell,player,skipTrace)){
+        cell.addPlayer( player )
+        processCaptures(skipTrace)
+        $scope.activeCell.removePlayer()
+        $scope.clearActiveCell()
+        $scope.passPlay()
+      } else {
+        $scope.flash = "Not a Valid Move"
+      }
     }else if( cell.ownedBy( $scope.activePlayer() ) ){
       $scope.activateCell(cell)  
-      console.log($scope.activeCell) 
     }
   }
  
@@ -31,26 +41,48 @@ app.controller("CheckersGameBoardController", function($scope){
     
   }
 
+  $scope.validMove = function(cell, player, skipTrace){
+    var validMoves = validBasicMoveVectors()[player.id]
+    var cellFound  = false
+    for(move in validMoves){
+      var coords = validMoves[move]
+      var targetCoords = mergeCoordinates($scope.activeCell, coords)
+      var target       = $scope.getCell(targetCoords.x,targetCoords.y)
+      //second hop in the same direction
+      var secondCoords = mergeCoordinates(target,coords)
+      var secondTarget = $scope.getCell(secondCoords.x,secondCoords.y)
+
+      if(target && cell.equals(target) && target.unoccupied() ){
+        cellFound = true
+        break
+      //target is occupied so we check the next cell
+      }else if(target.player && cell.equals(secondTarget)){
+        skipTrace.capture = target
+        cellFound = true
+        break
+      }
+    }
+    return cellFound;
+  }
+
   //***
   //private members
   //***
-  var checkGameCompletion = function(){
-    var maxPlays = $scope.boardWidth * $scope.boardHeight; 
-    if($scope.turns >= maxPlays){
-      $scope.gameStatus = 'complete'
-    }
+  var mergeCoordinates= function(c1,c2){
+    return { x: c1.x + c2.x, y: c1.y + c2.y }
   }
-
-  var validMove = function(cell,player){
+ 
+  var validBasicMoveVectors = function(){
     var dirs = GridGameHelp.Directions()
-    var validCoords = [ [dirs['sw'], dirs['se'] ], 
-                       [dirs['nw'], dirs['sw'] ] ]
-
-    for(coords in validCoords[player.id]){
-      
-    }
+    return [ [dirs['sw'], dirs['se'] ],  [dirs['nw'], dirs['ne'] ] ]
   }
   
+  var processCaptures = function(skipTrace){
+    if(skipTrace.capture){
+      skipTrace.capture.removePlayer()
+      $scope.activePlayer().addPoints(1)
+    }
+  }
 
  });
   

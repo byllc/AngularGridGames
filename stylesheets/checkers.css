@@ -70,3 +70,8 @@
 .active{
   border: 1px solid yellow;  
 }
+.error{
+  color: darkred;
+  text-align: center;
+  height: 10px;
+}
