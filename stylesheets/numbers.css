@@ -1,0 +1,64 @@
+body{
+  margin-top: 20px;
+  background-color: orange;
+}
+
+
+.gameContainer{
+  border: 5px solid;
+  display: block;
+  width: 410px;
+  margin: auto;
+  padding: 10px;
+  background-color: #dddddd;
+}
+
+.gameCell{
+  border: 1px solid;
+  background-color: gray;
+  width: 100px;
+  height: 100px;
+  float: left;
+  cursor: pointer;
+}
+
+.gameRow{
+  clear: left;
+}
+
+.anchor{
+  display: block;
+  clear: left;
+}
+
+.clear{
+	clear: both;
+}
+
+.token{
+  width: 100%;
+  height: 100%;
+  content: ' ';
+}
+
+.neutralToken{
+  background-color: darkgreen;
+}
+
+.p1Token{
+  background-color: black;
+  color: #eeeeee;
+}
+
+.active{
+  background-color: white;
+  border: 1px solid yellow;
+}
+
+.decoration{
+  font-size: 5em;
+  margin: auto;
+  text-align: center;
+  vertical-align: center;
+  display: block;
+}
