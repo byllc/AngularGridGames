@@ -52,7 +52,7 @@ app.controller("CheckersGameBoardController", function($scope){
       var secondCoords = mergeCoordinates(target,coords)
       var secondTarget = $scope.getCell(secondCoords.x,secondCoords.y)
 
-      if(target && cell.equals(target) && target.unoccupied() ){
+      if(target && cell.equals(target) && target.unowned() ){
         cellFound = true
         break
       //target is occupied so we check the next cell

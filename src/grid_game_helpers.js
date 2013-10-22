@@ -25,8 +25,17 @@ var GridGameHelper = function(){
       this.equals    = function(other){
         return this.x == other.x && this.y == other.y
       }
+      this.getIcon   = function(){
+        return this.occupant ? this.occupant.icon : ""
+      }
       this.hasPlayer = function(){
         return !(this.player == undefined)
+      }
+      this.addOccupant = function(obj){
+        this.occupant = obj
+      }
+      this.removeOccupant = function(){
+        this.occupant = undefined
       }
       this.removePlayer = function(){
         this.player = undefined
@@ -37,8 +46,11 @@ var GridGameHelper = function(){
       this.tokenIs = function(token){
         return this.player && this.player.token == token
       }
-      this.unoccupied = function(){
+      this.unowned = function(){
         return this.player == undefined
+      }
+      this.unoccupied = function(){
+        return this.occupant = undefined
       }
       this.statusToken = function(){
         return this.active ? "active" : "inactive";
@@ -86,6 +98,19 @@ var GridGameHelper = function(){
   
     }, 
 
+
+    /* A generalized game piece object
+       name: a label
+       html: html code representation 
+       icon: image or character */
+    Piece: function(name, html, icon, moves){
+        this.name = name
+        this.icon = icon
+        this.html = html
+        this.validMoves = moves
+    },
+
+
     /* A Generalized player object 
        id: Normally the expected index in the players array
        name: The name of the player
@@ -122,7 +147,10 @@ var GridGameHelper = function(){
 
       scope.activePlayerId = 0
       scope.firstPlayer  = scope.players[0]
-
+      scope.addCell     = function(cell){
+        scope.rows[cell.x] = scope.rows[cell.x] || new Array()
+        scope.rows[cell.x][cell.y] = cell
+      }
       scope.statusToken = function(x,y){
         return scope.getCell(x,y).active ? 'active' : ''
       }
@@ -162,6 +190,9 @@ var GridGameHelper = function(){
           cell.player = scope.activePlayer();
         }
       }
+      scope.rows = function(){
+        return this.gameboard.rows
+      }
       scope.swapActiveCell = function(cell){
         scope.activeCell.deactivate()
         scope.activateCell(cell)
@@ -179,7 +210,9 @@ var GridGameHelper = function(){
     Template: function(){
       var tpl ="<div ng-repeat='row in gameBoard.rows' class='gameRow'>"
           +"      <div ng-repeat='cell in gameBoard.rows[$index]' ng-class='cell.statusToken()' class='gameCell' ng-click='processClick(cell)'>"
-          +"        <div draggable='true' ng-class='cell.token()' class='token'><span class='decoration'>{{cell.decoration}}</div>"
+          +"        <div draggable='true' ng-class='cell.token()' class='token'>"
+          +"            <span class='icon'>{{cell.getIcon()}}</span>"
+          +"            <span class='decoration'>{{cell.decoration}}</div>"
           +"      </div>"
           +"   </div>"
           +"   <div class='clear'/>"

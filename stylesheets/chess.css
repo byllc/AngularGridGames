@@ -5,6 +5,7 @@
   margin: auto;
   padding: 10px;
   background-color: #dddddd;
+  font-family: 'Tangerine', serif;
 }
 
 .gameCell{
@@ -46,11 +47,21 @@
 }
 
 .p2Token{
-  background-color: white;
   color: #111111;
 }
 
 .p1Token{
-  background-color: black;
   color: #eeeeee;
+}
+
+.active{
+  border: 1px solid orange;
+}
+.icon{
+  color: red;
+  text-align: center;
+  margin: auto;
+  display: block;
+  vertical-align: center;
+  font-size: 3em;
 }
