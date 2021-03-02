@@ -27,22 +27,22 @@ Currently you need to include grid_board_games.js and the controller for the gam
 
 ```
 
-##Generates the following grid and playable game
+## Generates the following grid and playable game
 ![alt tag](https://raw.github.com/byllc/AngularGridGames/master/images/othello.png)
 
-##And Checkers is now functional with single jump mechanics
+## And Checkers is now functional with single jump mechanics
 ![alt tag](https://raw.github.com/byllc/AngularGridGames/master/images/checkers.png)
 
-##Number Puzzle
+## Number Puzzle
 ![alt tag](https://raw.github.com/byllc/AngularGridGames/master/images/numbers.png)
 
 
-##Chess is a work in progress
+## Chess is a work in progress
 ![alt tag](https://raw.github.com/byllc/AngularGridGames/master/images/chess.png)
 
 The look and feel differences are completely handled via css
 
-##Tests
+## Tests
 Test have been provided in Jasmine. You can view them by loading spec_runner.html in a browser
 ![alt tag](https://raw.github.com/byllc/AngularGridGames/master/images/spec.png)
 
